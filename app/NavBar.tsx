@@ -1,8 +1,13 @@
+"use client";
 import { IconBugFilled } from "@tabler/icons-react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import React from "react";
+import clsx from "clsx";
 
 const NavBar = () => {
+  const currentPath = usePathname();
+
   const links = [
     { url: "/", label: "Dashboard" },
     { url: "/issues", label: "Issues" },
@@ -19,7 +24,11 @@ const NavBar = () => {
             <Link
               key={link.url}
               href={link.url}
-              className="text-zinc-500 hover:text-zinc-800 transition-colors"
+              className={clsx({
+                "text-zinc-900": currentPath === link.url,
+                "text-zinc-500": currentPath !== link.url,
+                "hover:text-zinc-800 transition-colors": true,
+              })}
             >
               {link.label}
             </Link>
