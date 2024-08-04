@@ -20,9 +20,8 @@ const NavBar = () => {
       </Link>
       <ul className="flex gap-5">
         {links.map((link) => (
-          <li>
+          <li key={link.url}>
             <Link
-              key={link.url}
               href={link.url}
               className={clsx({
                 "text-zinc-900": currentPath === link.url,
