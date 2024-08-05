@@ -4,7 +4,7 @@ import React from "react";
 
 const IssueToolbar = () => {
   return (
-    <div className="m-b-5">
+    <div className="mb-5">
       <Button>
         <Link href="/issues/new">New issue</Link>
       </Button>
