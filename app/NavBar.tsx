@@ -8,7 +8,7 @@ import { Box } from "@radix-ui/themes";
 
 const NavBar = () => {
   const currentPath = usePathname();
-  const { status, data: session} = useSession()
+  const { status, data: session } = useSession();
 
   const links = [
     { url: "/", label: "Dashboard" },
@@ -37,8 +37,12 @@ const NavBar = () => {
         ))}
       </ul>
       <Box>
-        { status === "authenticated" && <Link href="/api/auth/signout">Log out</Link>}
-        { status === "unauthenticated" && <Link href="/api/auth/signin">Log in</Link>}
+        {status === "authenticated" && (
+          <Link href="/api/auth/signout">Log out</Link>
+        )}
+        {status === "unauthenticated" && (
+          <Link href="/api/auth/signin">Log in</Link>
+        )}
       </Box>
     </nav>
   );
