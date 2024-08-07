@@ -3,9 +3,12 @@ import { IconBugFilled } from "@tabler/icons-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import clsx from "clsx";
+import { useSession } from "next-auth/react";
+import { Box } from "@radix-ui/themes";
 
 const NavBar = () => {
   const currentPath = usePathname();
+  const { status, data: session} = useSession()
 
   const links = [
     { url: "/", label: "Dashboard" },
@@ -33,6 +36,10 @@ const NavBar = () => {
           </li>
         ))}
       </ul>
+      <Box>
+        { status === "authenticated" && <Link href="/api/auth/signout">Log out</Link>}
+        { status === "unauthenticated" && <Link href="/api/auth/signin">Log in</Link>}
+      </Box>
     </nav>
   );
 };
