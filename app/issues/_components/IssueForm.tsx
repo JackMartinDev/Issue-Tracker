@@ -1,6 +1,6 @@
 "use client";
 import { Button, Callout, TextField } from "@radix-ui/themes";
-import dynamic from "next/dynamic";
+import SimpleMDE from "react-simplemde-editor";
 import "easymde/dist/easymde.min.css";
 import { useForm, Controller } from "react-hook-form";
 import { useRouter } from "next/navigation";
@@ -11,10 +11,6 @@ import { z } from "zod";
 import { ErrorMessage, Spinner } from "@/app/components";
 import { Issue } from "@prisma/client";
 import axios from "axios";
-
-const SimpleMDE = dynamic(() => import("react-simplemde-editor"), {
-  ssr: false,
-});
 
 type IssueFormData = z.infer<typeof issueSchema>;
 
@@ -27,11 +23,12 @@ const IssueForm = ({ issue }: { issue?: Issue }) => {
   } = useForm<IssueFormData>({
     resolver: zodResolver(issueSchema),
   });
+
   const [error, setError] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const router = useRouter();
 
-  const onSubmitHandler = async (data: IssueFormData) => {
+  const createIssue = async (data: IssueFormData) => {
     try {
       setIsSubmitting(true);
       if (issue) {
@@ -56,7 +53,7 @@ const IssueForm = ({ issue }: { issue?: Issue }) => {
       )}
       <form
         className="max-w-lg space-y-3"
-        onSubmit={handleSubmit((data) => onSubmitHandler(data))}
+        onSubmit={handleSubmit((data) => createIssue(data))}
       >
         <TextField.Root
           placeholder="Title"
