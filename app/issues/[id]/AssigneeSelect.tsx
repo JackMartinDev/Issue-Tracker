@@ -3,6 +3,7 @@ import { User } from "@prisma/client";
 import { Select } from "@radix-ui/themes";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
+import { Skeleton } from "@/app/components";
 
 const AssigneeSelect = () => {
   const {
@@ -14,6 +15,14 @@ const AssigneeSelect = () => {
     queryFn: () => axios.get("/api/users").then((res) => res.data),
     staleTime: 60 * 1000,
   });
+
+  if (isLoading) {
+    return <Skeleton />;
+  }
+
+  if (error) {
+    return null;
+  }
 
   return (
     <Select.Root>
