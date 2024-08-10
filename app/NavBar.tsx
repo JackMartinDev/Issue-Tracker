@@ -12,10 +12,11 @@ import {
   Flex,
   Text,
 } from "@radix-ui/themes";
+import { Skeleton } from "@/app/components";
 
 const NavBar = () => {
   return (
-    <nav className="mb-5 p-5 bg-gray-200 border-b h-16">
+    <nav className="mb-5 p-5 bg-slate-50 border-b h-16">
       <Container>
         <Flex justify="between">
           <Flex gap="5">
@@ -63,7 +64,7 @@ const AuthenticationStatus = () => {
   const { status, data: session } = useSession();
 
   if (status === "loading") {
-    return null;
+    return <Skeleton width="3rem" />;
   }
 
   if (status === "unauthenticated") {
