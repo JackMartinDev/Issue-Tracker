@@ -4,12 +4,6 @@ import { getServerSession } from "next-auth";
 import { NextRequest, NextResponse } from "next/server";
 import authOptions from "../auth/authOptions";
 
-const GET = async (request: NextRequest) => {
-  const users = await prisma.user.findMany();
-
-  return NextResponse.json(users);
-};
-
 const POST = async (request: NextRequest) => {
   const session = await getServerSession(authOptions);
   if (!session) {
@@ -29,4 +23,4 @@ const POST = async (request: NextRequest) => {
   return NextResponse.json(newIssue, { status: 201 });
 };
 
-export { POST, GET };
+export { POST };
